@@ -54,6 +54,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -1087,16 +1088,6 @@ transform:none;
 
 }
 
-@media (max-width:900px){
-
-  .project-case{
-
-    gap:24px;
-
-  }
-
-}
-
 .project-case__info h3{
 
   font-size:36px;
@@ -1682,57 +1673,143 @@ transform:none;
   75% { transform: translateX(7px); }
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
+/* ===== RESPONSIVE =====
+   Брейкпоинты (десктоп-first, каскад сверху вниз):
+   1201px+     — широкоформатные мониторы, Full HD, 4K (стили по умолчанию, без медиа-запроса)
+   1025–1200px — стандартные ноутбуки, нетбуки, минимальные мониторы
+   769–1024px  — планшеты (iPad) и маленькие ноутбуки
+   481–768px   — смартфоны и фаблеты
+   320–480px   — маленькие смартфоны (iPhone SE и старые устройства) */
+
+/* ---------- 1025–1200px: ноутбуки/нетбуки ---------- */
+@media (max-width: 1200px) {
+  .hero__card {
+    padding: 28px 32px 48px;
+  }
+
+  .hero__contacts {
+    right: 6%;
+  }
+
+  .about__card {
+    max-width: 640px;
+    margin-left: 24px;
+  }
+
+  .about__avatar {
+    width: 46vw;
+  }
+
+  .projects__container {
+    padding-left: clamp(48px, 8vw, 120px);
+  }
+
+  .projects__grid {
+    gap: 28px;
+  }
+
+  .projects-modal__window {
+    width: 90vw;
+  }
+
+  .projects-modal__content {
+    padding: 56px;
+  }
+
+  .experience__panel--education .experience__details {
+    left: 60px;
+    right: 380px;
+  }
+
+  .experience__panel--work .experience__details {
+    left: 380px;
+    right: 60px;
+  }
+}
+
+/* ---------- 769–1024px: планшеты и маленькие ноутбуки ---------- */
+@media (max-width: 1024px) {
+  .hero {
+    padding: 32px 20px;
+  }
+
+  .hero__card {
+    min-height: auto;
+    padding: 28px 24px 40px;
+  }
+
   .hero__content {
     grid-template-columns: 1fr;
     text-align: center;
+    row-gap: 32px;
+    padding: 40px 0 60px;
+  }
+
+  .hero__title-block {
+    position: static;
+    margin-bottom: 24px;
+  }
+
+  .hero__title {
+    font-size: clamp(36px, 7vw, 64px);
+    margin-top: 0;
+    white-space: normal;
+    overflow-wrap: normal;
+    hyphens: auto;
+  }
+
+  .hero__subtitle {
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .hero__subtitle__1 {
+    font-size: 32px;
   }
 
   .hero__avatar {
-    grid-column: 1;
-    grid-row: auto;
+    position: static;
+    transform: none;
+    width: 200px;
     margin: 0 auto;
+  }
+
+  .hero__avatar::after {
+    width: 180px;
   }
 
   .hero__tools,
   .hero__contacts {
-    grid-column: 1;
+    position: static;
     justify-content: center;
-    align-self: center;
-    padding-bottom: 0;
+    margin: 0 auto;
   }
 
-  .hero__tools {
-    justify-content: center;
+  .hero__contacts {
+    display: inline-flex;
+    flex-direction: column;
   }
 
-  .hero__contacts li {
-    justify-content: center;
+  .hero__scroll {
+    display: none;
+  }
+
+  .about {
+    padding: 60px 20px 160px;
   }
 
   .about__inner {
-    position:relative;
-
-    z-index:2;
-
-    max-width:1280px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:560px 1fr;
-
-    align-items:end;
-
-    gap:90px;
-
-    min-height:85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: auto;
+    padding-top: 20px;
   }
 
   .about__card {
-    max-width: 100%;
+    max-width: 640px;
+    margin-left: 0;
   }
 
   .about__tags {
@@ -1740,11 +1817,21 @@ transform:none;
   }
 
   .about__avatar {
-    margin: 0 auto;
+    position: absolute;
+    right: -4%;
+    bottom: 60px;
+    width: 42vw;
+    max-width: 320px;
+    z-index: 2;
+    opacity: 0.85;
+  }
+
+  .about__heading {
+    font-size: clamp(56px, 12vw, 100px);
   }
 
   .projects {
-    padding: 80px 24px;
+    padding: 72px 20px;
   }
 
   .projects__title {
@@ -1752,7 +1839,7 @@ transform:none;
     transform: none;
     writing-mode: horizontal-tb;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     white-space: normal;
   }
 
@@ -1763,6 +1850,25 @@ transform:none;
   .projects__grid {
     grid-template-columns: repeat(2, 1fr);
     min-height: auto;
+    gap: 20px;
+  }
+
+  .projects-modal__window {
+    width: 92vw;
+    height: 86vh;
+    border-radius: 28px;
+  }
+
+  .projects-modal__content {
+    padding: 40px 28px;
+  }
+
+  .projects-modal__header h2 {
+    font-size: 40px;
+  }
+
+  .projects-modal__header p {
+    font-size: 16px;
   }
 
   .experience__slider {
@@ -1771,22 +1877,42 @@ transform:none;
 
   .experience__panel {
     flex: 1 1 auto !important;
-    min-height: 60vh;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px 24px;
+    width: 100% !important;
+    min-height: auto;
+    padding: 64px 40px;
   }
 
   .experience__toggle {
     display: none;
   }
 
-  .experience__title {
+  .experience__title--education,
+  .experience__title--work {
     position: static;
     transform: none;
     writing-mode: horizontal-tb;
-    text-align: center;
-    margin-bottom: 24px;
+    text-align: left;
+    font-size: clamp(28px, 6vw, 48px);
+    margin-bottom: 20px;
+  }
+
+  .experience__avatar {
+    position: absolute;
+    bottom: 24px;
+    width: clamp(160px, 26vw, 230px);
+    margin: 0;
+    opacity: 0.9;
+    z-index: 1;
+  }
+
+  .experience__panel--education .experience__avatar {
+    right: 24px;
+    left: auto;
+  }
+
+  .experience__panel--work .experience__avatar {
+    right: 24px;
+    left: auto;
   }
 
   .experience__details {
@@ -1794,20 +1920,30 @@ transform:none;
     opacity: 1;
     transform: none;
     pointer-events: auto;
-    max-width: 100%;
-    margin-bottom: 24px;
+    left: auto !important;
+    right: auto !important;
+    max-width: 55%;
+  }
+
+  .experience__panel--education .experience__details,
+  .experience__panel--work .experience__details {
+    left: auto;
+    right: auto;
   }
 
   .experience__details-heading {
     display: none;
   }
 
+  .experience__details-intro,
   .experience__cards {
-    max-width: 100%;
+    max-width: 440px;
+    margin-left: 0;
   }
 }
 
-@media (max-width: 560px) {
+/* ---------- 481–768px: смартфоны и фаблеты ---------- */
+@media (max-width: 768px) {
   .hero__nav {
     gap: 16px;
     flex-wrap: wrap;
@@ -1815,10 +1951,205 @@ transform:none;
   }
 
   .hero__card {
-    padding: 24px;
+    padding: 20px 16px 32px;
+  }
+
+  .hero__title {
+    font-size: clamp(30px, 10vw, 48px);
+    white-space: normal;
+    overflow-wrap: normal;
+    hyphens: auto;
+  }
+
+  .hero__subtitle__1 {
+    font-size: 26px;
+  }
+
+  .hero__tools {
+    flex-wrap: wrap;
+  }
+
+  .about__heading {
+    font-size: clamp(44px, 14vw, 72px);
+  }
+
+  .about__card {
+    padding: 32px 24px;
+  }
+
+  .about__text {
+    font-size: 16px;
+  }
+
+  .projects__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .project-card span {
+    font-size: 16px;
+    left: 16px;
+    top: 16px;
+  }
+
+  .projects-modal__window {
+    width: 94vw;
+    height: 88vh;
+  }
+
+  .projects-modal__content {
+    padding: 32px 20px;
+  }
+
+  .projects-modal__header h2 {
+    font-size: 32px;
+  }
+
+  .project-case img {
+    max-width: 100%;
+  }
+
+  .experience__card {
+    padding: 16px 18px;
+  }
+
+  .experience__card h4 {
+    font-size: 15px;
+  }
+}
+
+/* ---------- 320–480px: маленькие смартфоны ---------- */
+@media (max-width: 480px) {
+  .hero {
+    padding: 20px 12px;
+  }
+
+  .hero__card {
+    padding: 16px 14px 28px;
+    border-radius: 18px;
+  }
+
+  .hero__nav {
+    gap: 10px;
+  }
+
+  .hero__nav a {
+    font-size: 11px;
+  }
+
+  .hero__title {
+    font-size: clamp(26px, 9vw, 38px);
+    white-space: normal;
+    overflow-wrap: normal;
+    hyphens: auto;
+  }
+
+  .hero__subtitle__1 {
+    font-size: 20px;
+  }
+
+  .hero__subtitle__2 {
+    font-size: 15px;
+  }
+
+  .hero__avatar {
+    width: 150px;
+    margin-top: -50px;
+    position: relative;
+    z-index: 5;
+  }
+
+  .hero__contacts li {
+    font-size: 12px;
+  }
+
+  .about__heading {
+    font-size: clamp(32px, 15vw, 48px);
+  }
+
+  .about__card {
+    padding: 24px 18px;
+    border-radius: 24px;
+  }
+
+  .about__greeting {
+    font-size: 20px;
+  }
+
+  .about__tags span {
+    padding: 8px 14px;
+    font-size: 12px;
   }
 
   .projects__grid {
     grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    aspect-ratio: 4 / 3;
+  }
+
+  .projects-modal__window {
+    width: 96vw;
+    height: 90vh;
+    border-radius: 20px;
+  }
+
+  .projects-modal__content {
+    padding: 24px 16px;
+  }
+
+  .projects-modal__header {
+    margin-bottom: 32px;
+  }
+
+  .projects-modal__header h2 {
+    font-size: 26px;
+  }
+
+  .projects-modal__header p {
+    font-size: 14px;
+  }
+
+  .projects-modal__close {
+    width: 40px;
+    height: 40px;
+    top: 14px;
+    right: 14px;
+    font-size: 18px;
+  }
+
+  .project-case__tools span {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .image-lightbox {
+    padding: 16px;
+  }
+
+  .experience__panel {
+    padding: 40px 16px;
+  }
+
+  .experience__avatar {
+    width: clamp(150px, 50vw, 200px);
+  }
+
+  .experience__details-intro {
+    font-size: 14px;
+  }
+
+  .experience__card {
+    padding: 14px 16px;
+  }
+
+  .experience__card h4 {
+    font-size: 14px;
+  }
+
+  .experience__card p,
+  .experience__card--list li {
+    font-size: 13px;
   }
 }
