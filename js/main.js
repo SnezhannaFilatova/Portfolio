@@ -1,18 +1,130 @@
 (function () {
   'use strict';
 
-  /* ===== EXPERIENCE TOGGLE ===== */
-  const toggleBtn = document.querySelector('.experience__toggle');
-  const panels = document.querySelectorAll('.experience__panel');
-  let activePanel = 'education';
+  /* ===== EXPERIENCE DRAG SLIDER =====
+     split = ширина левой (education) панели в процентах (0..100).
+     50 = по центру, 100 = education на весь экран, 0 = work на весь экран.
+     Единое правило порога (50% пути от центра к краю) работает и при
+     развороте из центра, и при возврате из полностью развёрнутого состояния. */
+  const experienceSlider = document.querySelector('.experience__slider');
+  const experienceHandle = document.querySelector('.experience__toggle');
+  const experiencePanels = document.querySelectorAll('.experience__panel');
 
-  if (toggleBtn && panels.length) {
-    toggleBtn.addEventListener('click', () => {
-      activePanel = activePanel === 'education' ? 'work' : 'education';
-      panels.forEach((panel) => {
-        panel.classList.toggle('is-active', panel.dataset.panel === activePanel);
-      });
-    });
+  if (experienceSlider && experienceHandle && experiencePanels.length === 2) {
+    const [leftPanel, rightPanel] = experiencePanels;
+    const HANDLE_WIDTH = 80; // должно совпадать с шириной .experience__toggle в CSS
+    const VISIBLE_MARGIN = 16; // отступ от края экрана, чтобы ручка не прилипала к границе
+    const SNAP_LOW = 25;  // 50 - 50% пути до 0
+    const SNAP_HIGH = 75; // 50 + 50% пути до 100
+    const REVEAL_THRESHOLD = 65; // с какой ширины панели показываем карточки
+
+    const leftDetails = leftPanel.querySelector('.experience__details');
+    const rightDetails = rightPanel.querySelector('.experience__details');
+
+    let split = 50;
+    let dragging = false;
+    let startX = 0;
+    let startSplit = 50;
+
+    function applySplit(value, sliderWidth, applyState = true) {
+      leftPanel.style.width = `${value}%`;
+      rightPanel.style.width = `${100 - value}%`;
+
+      // центр ручки должен стоять ровно на границе панелей — вычитаем половину
+      // её собственной ширины, иначе на месте границы оказывается левый край ручки
+      const centerPx = Math.min(
+        Math.max((value / 100) * sliderWidth, HANDLE_WIDTH / 2 + VISIBLE_MARGIN),
+        sliderWidth - HANDLE_WIDTH / 2 - VISIBLE_MARGIN
+      );
+      experienceHandle.style.left = `${centerPx - HANDLE_WIDTH / 2}px`;
+
+      if (applyState) {
+
+        const leftIsFull = value === 100;
+        const rightIsFull = value === 0;
+    
+        leftPanel.classList.toggle('is-full', leftIsFull);
+        rightPanel.classList.toggle('is-full', rightIsFull);
+    
+        leftPanel.classList.toggle('is-collapsed', rightIsFull);
+        rightPanel.classList.toggle('is-collapsed', leftIsFull);
+    
+        if (leftDetails)
+            leftDetails.classList.toggle('is-expanded', leftIsFull);
+    
+        if (rightDetails)
+            rightDetails.classList.toggle('is-expanded', rightIsFull);
+    
+    } else {
+    
+        leftPanel.classList.remove('is-full');
+        rightPanel.classList.remove('is-full');
+        leftPanel.classList.remove('is-collapsed');
+        rightPanel.classList.remove('is-collapsed');
+    
+        if (leftDetails)
+            leftDetails.classList.remove('is-expanded');
+    
+        if (rightDetails)
+            rightDetails.classList.remove('is-expanded');
+    
+    }
+    }
+
+    function render(value) {
+      const sliderWidth = experienceSlider.getBoundingClientRect().width;
+      applySplit(value, sliderWidth);
+    }
+
+    function snapTo(value) {
+      split = value;
+      experienceSlider.classList.add('is-snapping');
+      render(split);
+      window.setTimeout(() => {
+        experienceSlider.classList.remove('is-snapping');
+      }, 500);
+    }
+
+    function onPointerDown(e) {
+      dragging = true;
+      startX = e.clientX;
+      startSplit = split;
+      experienceSlider.classList.remove('is-snapping');
+      experienceHandle.classList.add('is-dragging');
+      experienceHandle.setPointerCapture(e.pointerId);
+    }
+
+    function onPointerMove(e) {
+      if (!dragging) return;
+      const sliderWidth = experienceSlider.getBoundingClientRect().width;
+      const deltaPercent = ((e.clientX - startX) / sliderWidth) * 100;
+      split = Math.min(Math.max(startSplit + deltaPercent, 0), 100);
+      applySplit(split, sliderWidth, false);
+    }
+
+    function onPointerUp() {
+      if (!dragging) return;
+      dragging = false;
+      experienceHandle.classList.remove('is-dragging');
+
+      if (split >= SNAP_HIGH) {
+        snapTo(100);
+      } else if (split <= SNAP_LOW) {
+        snapTo(0);
+      } else {
+        snapTo(50);
+      }
+    }
+
+    experienceHandle.addEventListener('pointerdown', onPointerDown);
+    experienceHandle.addEventListener('pointermove', onPointerMove);
+    experienceHandle.addEventListener('pointerup', onPointerUp);
+    experienceHandle.addEventListener('pointercancel', onPointerUp);
+
+    window.addEventListener('resize', () => render(split));
+
+    // начальная раскладка
+    render(split);
   }
 
   /* ===== HERO NAV LABELS ===== */
@@ -73,8 +185,8 @@
           title: 'Календарь',
           description: 'Настенный календарь на 12 листов с индивидуальной раскадровкой для каждого месяца, выполнен в фирменной чёрно-жёлтой палитре.',
           tools: ['Adobe Photoshop', 'Adobe InDesign'],
-          cover: 'src/img/projects/print/calendar.png',
-          gallery: ['src/img/projects/print/calendar.png']
+          cover: 'src/img/projects/print/calendar.jpg',
+          gallery: ['src/img/projects/print/calendar.jpg']
         },
         {
           title: 'Документация',
