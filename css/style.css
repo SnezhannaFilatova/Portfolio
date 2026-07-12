@@ -1497,7 +1497,7 @@ transform:none;
   /* transition: transform 0.6s, opacity 0.3s; */
 }
 
-experience__panel--education .experience__details{
+.experience__panel--education .experience__details{
 
   left:80px;
   right:420px;

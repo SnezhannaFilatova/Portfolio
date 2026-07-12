@@ -130,10 +130,10 @@
   /* ===== HERO NAV LABELS ===== */
   const heroNavLinks = document.querySelectorAll('.hero__nav a');
   heroNavLinks.forEach((link, index) => {
-    const targets = ['#about', '#projects', '#experience', '#hero'];
+    const targets = ['#about', '#projects', '#experience'];
     if (targets[index]) {
       link.setAttribute('href', targets[index]);
-      link.textContent = ['Обо мне', 'Проекты', 'Опыт', 'Главная'][index];
+      link.textContent = ['Обо мне', 'Проекты', 'Опыт и образование'][index];
     }
   });
 
