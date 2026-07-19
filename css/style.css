@@ -1894,7 +1894,7 @@ transform:none;
     transform: none;
     writing-mode: horizontal-tb;
     text-align: left;
-    font-size: clamp(28px, 6vw, 48px);
+    font-size: clamp(18px, 4vw, 48px);
     margin-bottom: 20px;
   }
 
