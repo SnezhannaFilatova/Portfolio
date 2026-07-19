@@ -661,12 +661,12 @@ transform:none;
 
   inset:0;
 
-  background:
+  /* background:
       linear-gradient(
           180deg,
           rgba(0,0,0,.65),
           rgba(0,0,0,.75)
-      );
+      ); */
 
   z-index:1;
 
@@ -1822,7 +1822,6 @@ transform:none;
     width: 42vw;
     max-width: 320px;
     z-index: 8;
-    opacity: 0.85;
   }
 
   .about__heading {
@@ -2088,7 +2087,7 @@ transform:none;
   }
 
   .about__heading {
-    font-size: clamp(32px, 15vw, 48px);
+    font-size: clamp(22px, 5vw, 48px);
   }
 
   .about__card {
