@@ -415,7 +415,7 @@ transform:none;
 /* ===== ABOUT ===== */
 .about {
   position: relative;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   padding: 10px 24px 120px;
   background: var(--beige-light-flip);
   position: relative;
@@ -503,7 +503,7 @@ transform:none;
   line-height: 0.9;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  z-index: 5;
+  z-index: 10;
   pointer-events: none;
 }
 
@@ -1751,8 +1751,8 @@ transform:none;
   }
 
   .hero__title {
-    font-size: clamp(36px, 7vw, 64px);
-    margin-top: 0;
+    font-size: clamp(36px, 5vw, 64px);
+    margin-top: 25px;
     white-space: normal;
     overflow-wrap: normal;
     hyphens: auto;
@@ -1818,16 +1818,19 @@ transform:none;
 
   .about__avatar {
     position: absolute;
-    right: -4%;
-    bottom: 60px;
+    bottom: -10%;
     width: 42vw;
     max-width: 320px;
-    z-index: 2;
+    z-index: 8;
     opacity: 0.85;
   }
 
   .about__heading {
-    font-size: clamp(56px, 12vw, 100px);
+    font-size: clamp(56px, 5vw, 100px);
+  }
+
+  .about__curve-text2{
+    bottom: -40%;
   }
 
   .projects {
@@ -1955,7 +1958,7 @@ transform:none;
   }
 
   .hero__title {
-    font-size: clamp(30px, 10vw, 48px);
+    font-size: clamp(20px, 5vw, 48px);
     white-space: normal;
     overflow-wrap: normal;
     hyphens: auto;
@@ -1965,12 +1968,16 @@ transform:none;
     font-size: 26px;
   }
 
+  .hero__subtitle__2 {
+    margin-bottom: 5px;
+    font-size: 15px;
+  }
   .hero__tools {
     flex-wrap: wrap;
   }
 
   .about__heading {
-    font-size: clamp(44px, 14vw, 72px);
+    font-size: clamp(44px, 5vw, 72px);
   }
 
   .about__card {
@@ -1979,6 +1986,10 @@ transform:none;
 
   .about__text {
     font-size: 16px;
+  }
+
+  .about__curve-text2{
+    bottom: -30%;
   }
 
   .projects__grid {
@@ -2016,6 +2027,19 @@ transform:none;
   .experience__card h4 {
     font-size: 15px;
   }
+
+  .experience__avatar {
+    display: none;
+  }
+
+  .experience__details {
+    max-width: 100%;
+  }
+
+  .experience__details-intro,
+  .experience__cards {
+    max-width: 100%;
+  }
 }
 
 /* ---------- 320–480px: маленькие смартфоны ---------- */
@@ -2038,7 +2062,7 @@ transform:none;
   }
 
   .hero__title {
-    font-size: clamp(26px, 9vw, 38px);
+    font-size: clamp(16px, 5vw, 38px);
     white-space: normal;
     overflow-wrap: normal;
     hyphens: auto;
@@ -2049,13 +2073,13 @@ transform:none;
   }
 
   .hero__subtitle__2 {
-    font-size: 15px;
+    font-size: 10px;
   }
 
   .hero__avatar {
     width: 150px;
     margin-top: -50px;
-    position: relative;
+
     z-index: 5;
   }
 
@@ -2079,6 +2103,10 @@ transform:none;
   .about__tags span {
     padding: 8px 14px;
     font-size: 12px;
+  }
+
+  .about__curve-text2{
+    bottom: -20%;
   }
 
   .projects__grid {
